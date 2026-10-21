@@ -31,3 +31,19 @@ Vanilla HTML/CSS/JS. Dataset: MovieLens latest-small (GroupLens Research).
 ## Run locally
 
 Open `index.html` or serve the folder (`python3 -m http.server`).
+
+---
+
+## 🐍 Python version (real ML backend) - `python-app/`
+
+The browser demo above is fully client-side. This folder is the **pro-grade version** with a real training pipeline on real data:
+
+Trains a 50-factor SVD on MovieLens-100k (100k real ratings), blended with genre similarity. Holdout RMSE 1.00. Stack: Python, Streamlit, scikit-learn.
+
+```bash
+cd python-app
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+Deploy free on **Hugging Face Spaces** (no card): create a Space, upload the `python-app/` folder - it ships Space-ready (`sdk` + `app_file` already set in its README). Retrain anytime with `python train.py` (where present).

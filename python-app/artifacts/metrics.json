@@ -1,0 +1,8 @@
+{
+  "rmse": 1.002,
+  "mae": 0.795,
+  "n_ratings": 100000,
+  "n_movies": 1682,
+  "k": 50,
+  "dataset": "MovieLens-100k (GroupLens)"
+}
