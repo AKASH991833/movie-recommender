@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CineMatch - Movie Recommender</title>
+<meta name="description" content="Rate a few movies, get recommendations explained by your own taste profile. Built on real MovieLens ratings, runs fully offline.">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0891b2">
+<link rel="icon" href="icon-192.png">
+<link rel="stylesheet" href="design.css">
+<style>
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:14px}
+.mcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:all .15s;position:relative}
+.mcard:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.poster{aspect-ratio:2/2.6;display:flex;flex-direction:column;justify-content:flex-end;padding:12px;color:#fff;position:relative}
+.poster h3{font-size:14.5px;font-weight:800;line-height:1.25;letter-spacing:-.01em;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.poster .yr{font-size:11.5px;font-weight:700;opacity:.85}
+.mbody{padding:10px 12px 12px}
+.gtags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+.gtag{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--surface2);color:var(--muted)}
+.mscore{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--muted);font-weight:700}
+.stars{display:flex;gap:2px;margin-top:8px}
+.star{font-size:19px;cursor:pointer;color:var(--border);transition:color .1s;user-select:none}
+.star.on{color:#f59e0b}
+.why{margin-top:8px;font-size:11.5px;color:var(--accent);font-weight:700;line-height:1.4}
+.tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.tab{padding:9px 18px;border-radius:11px;border:1px solid var(--border);background:var(--surface);font-weight:700;font-size:13.5px;cursor:pointer;color:var(--ink)}
+.tab.on{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;border-color:transparent}
+.sect{font-size:13px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+.taste{display:flex;flex-wrap:wrap;gap:8px}
+.taste-tag{padding:8px 14px;border-radius:99px;background:var(--surface2);font-size:13px;font-weight:700}
+.taste-tag b{color:var(--accent)}
+.limit-card{border-left:4px solid var(--accent);background:color-mix(in srgb,var(--accent) 6%,var(--surface));font-size:13.5px;color:var(--muted);margin-top:22px}
+.limit-card b{color:var(--ink)}
+.empty{padding:40px;text-align:center;color:var(--muted)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.fchip{padding:6px 13px;border-radius:99px;border:1px solid var(--border);background:var(--surface);font-size:12.5px;font-weight:600;cursor:pointer;color:var(--ink)}
+.fchip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+</style>
+</head>
+<body>
+<nav class="topnav">
+  <div class="brand"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" fill="url(#g)"/><rect x="7" y="7" width="10" height="10" rx="2.5" stroke="#fff" stroke-width="1.8"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><defs><linearGradient id="g" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#0891b2"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs></svg>&nbsp;CineMatch</div>
+  <span class="sp"></span>
+  <button id="btn-install" class="icon-btn" hidden title="Install app">⤓</button>
+  <button id="btn-theme" class="icon-btn" title="Toggle theme">☾</button>
+</nav>
+<main class="page">
+  <header class="page-head">
+    <h1>Movies you'll love, <em>explained</em></h1>
+    <p>Rate a handful of movies and CineMatch builds a taste profile from your ratings - then recommends from 280 top-rated films on the real MovieLens dataset, telling you exactly why.</p>
+  </header>
+  <div class="tabs">
+    <button class="tab on" data-t="rate">Rate movies</button>
+    <button class="tab" data-t="recs">Your picks <span id="recCount" style="opacity:.7"></span></button>
+    <button class="tab" data-t="taste">Taste profile</button>
+  </div>
+  <div id="stage"></div>
+  <section class="card limit-card"><div class="card-body">
+    <b>Honest limits.</b> Recommendations come from a catalog of the 280 highest-rated films in the MovieLens (latest-small, 100k ratings) research dataset using content-based matching - no collaborative filtering across users, no posters (rights), and the catalog stops at 2018. Your ratings never leave this device.
+  </div></section>
+</main>
+<script src="core.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script>if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js')</script>
+</body>
+</html>
